@@ -4,7 +4,7 @@ import Posts from "./Posts";
 
 const posts = [
   {
-    id: 123,
+    id: 20004127,
     title: "Test title",
     url: "google.com",
     by: "author",
@@ -12,7 +12,7 @@ const posts = [
     descendants: 100
   },
   {
-    id: 124,
+    id: 20004128,
     title: "Test title II",
     url: "heroku.com",
     by: "another author",

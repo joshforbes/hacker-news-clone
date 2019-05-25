@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Post from "./Post";
+import HackerNews from "../apis/HackerNews";
 
 const HackerNewsApi = {
-  post: {
-    id: 123,
-    title: "Test title",
-    url: "google.com",
-    by: "author",
-    time: "1558422372",
-    descendants: 100
-  },
   comments: [
     {
       id: 123,
@@ -30,17 +23,25 @@ const HackerNewsApi = {
   ]
 };
 
-function PostComments({ id }) {
+function PostComments({
+  match: {
+    params: { id }
+  }
+}) {
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    setPost(HackerNewsApi.post);
-  }, [post]);
+    const fetchData = async () => {
+      setPost(await HackerNews.post(id));
+    };
+
+    fetchData();
+  }, [id]);
 
   useEffect(() => {
     setComments(HackerNewsApi.comments);
-  }, [post]);
+  }, [id]);
 
   if (!post) {
     return <div>Loading...</div>;
