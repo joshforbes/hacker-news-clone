@@ -6,7 +6,12 @@ function Post({ post }) {
     <React.Fragment>
       <a href={post.url}>{post.title}</a>
       <div>
-        <span>by {post.by}</span>
+        <span>
+          by
+          <Link to={`/user/${post.by}`} post={post.by}>
+            {post.by}
+          </Link>
+        </span>
         <span>on {post.time}</span>
         <span>
           with
