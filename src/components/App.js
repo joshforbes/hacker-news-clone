@@ -1,8 +1,18 @@
 import React from "react";
-import Posts from "./Top";
+import Top from "./Top";
+import PostComments from "./PostComments";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
-  return <Posts />;
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Top} />
+        <Route exact path="/post/:id" component={PostComments} />
+        <Route render={() => <h1>404</h1>} />
+      </Switch>
+    </Router>
+  );
 }
 
 export default App;
