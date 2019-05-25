@@ -1,26 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Post from "./Post";
 
-const comments = [
-  {
+const HackerNewsApi = {
+  post: {
     id: 123,
-    parent: 1234,
+    title: "Test title",
+    url: "google.com",
     by: "author",
-    text: "a test comment",
     time: "1558422372",
-    type: "comment"
+    descendants: 100
   },
-  {
-    id: 124,
-    parent: 12345,
-    by: "another author",
-    text: "some follow up",
-    time: "1558422375",
-    type: "comment"
-  }
-];
+  comments: [
+    {
+      id: 123,
+      parent: 1234,
+      by: "author",
+      text: "a test comment",
+      time: "1558422372",
+      type: "comment"
+    },
+    {
+      id: 124,
+      parent: 12345,
+      by: "another author",
+      text: "some follow up",
+      time: "1558422375",
+      type: "comment"
+    }
+  ]
+};
 
-function PostComments({ post }) {
+function PostComments({ id }) {
+  const [post, setPost] = useState(null);
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    setPost(HackerNewsApi.post);
+  }, [post]);
+
+  useEffect(() => {
+    setComments(HackerNewsApi.comments);
+  }, [post]);
+
+  if (!post) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="post-comments">
       <Post post={post} />

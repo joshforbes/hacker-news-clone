@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Post({ post }) {
   return (
@@ -7,7 +8,13 @@ function Post({ post }) {
       <div>
         <span>by {post.by}</span>
         <span>on {post.time}</span>
-        <span>with {post.descendants} comments</span>
+        <span>
+          with
+          <Link to={`/post/${post.id}`} post={post}>
+            {post.descendants}
+          </Link>
+          comments
+        </span>
       </div>
     </React.Fragment>
   );
