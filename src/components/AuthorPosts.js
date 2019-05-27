@@ -1,44 +1,32 @@
 import React, { useState, useEffect } from "react";
 import Post from "./Post";
+import HackerNews from "../apis/HackerNews";
 
-const HackerNewsApi = {
-  author: {
-    created: 1358751893,
-    id: "dombili",
-    karma: 1491,
-    submitted: [19986106, 19285364, 19189410]
-  },
-  posts: [
-    {
-      id: 123,
-      title: "Test title",
-      url: "google.com",
-      by: "author",
-      time: "1558422372",
-      descendants: 100
-    },
-    {
-      id: 124,
-      title: "Test title II",
-      url: "heroku.com",
-      by: "another author",
-      time: "1558422372",
-      descendants: 5
-    }
-  ]
-};
-
-function AuthorPosts({ id }) {
+function AuthorPosts({
+  match: {
+    params: { id }
+  }
+}) {
   const [author, setAuthor] = useState(null);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    setAuthor(HackerNewsApi.author);
-  }, [author]);
+    const fetchAuthor = async () => {
+      setAuthor(await HackerNews.fetchUser(id));
+    };
+
+    fetchAuthor();
+  }, [id]);
 
   useEffect(() => {
-    setPosts(HackerNewsApi.posts);
-  }, [posts]);
+    if (author) {
+      const fetchPosts = async () => {
+        setPosts(await HackerNews.fetchPosts(author.submitted));
+      };
+
+      fetchPosts();
+    }
+  }, [author]);
 
   if (!author) {
     return <div>Loading...</div>;
@@ -55,7 +43,11 @@ function AuthorPosts({ id }) {
       </div>
       <ul>
         {posts.map(post => {
-          return <Post post={post} />;
+          return (
+            <div>
+              <Post post={post} />
+            </div>
+          );
         })}
       </ul>
     </div>

@@ -12,7 +12,7 @@ function PostComments({
 
   useEffect(() => {
     const fetchPost = async () => {
-      setPost(await HackerNews.fetch(id));
+      setPost(await HackerNews.fetchItem(id));
     };
 
     fetchPost();
@@ -22,7 +22,7 @@ function PostComments({
     if (post) {
       const fetchComments = async () => {
         const comments = post.kids.map(async id => {
-          return await HackerNews.fetch(id);
+          return await HackerNews.fetchItem(id);
         });
 
         setComments(await Promise.all(comments));
