@@ -13,7 +13,11 @@ const HackerNews = {
   async fetchPosts(ids) {
     const posts = await Promise.all(ids.map(HackerNews.fetchItem));
     return posts.filter(({ type }) => type === "story");
-  }
+  },
+  async fetchComments(ids) {
+    const comments = await Promise.all(ids.map(HackerNews.fetchItem));
+    return comments.filter(({ type }) => type === "comment");
+  },
 };
 
 export default HackerNews;

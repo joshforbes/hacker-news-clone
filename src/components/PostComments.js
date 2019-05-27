@@ -21,11 +21,7 @@ function PostComments({
   useEffect(() => {
     if (post) {
       const fetchComments = async () => {
-        const comments = post.kids.map(async id => {
-          return await HackerNews.fetchItem(id);
-        });
-
-        setComments(await Promise.all(comments));
+        setComments(await HackerNews.fetchComments(post.kids));
       };
 
       fetchComments();
