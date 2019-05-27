@@ -44,9 +44,9 @@ function AuthorPosts({
       <ul>
         {posts.map(post => {
           return (
-            <div>
+            <li key={post.id}>
               <Post post={post} />
-            </div>
+            </li>
           );
         })}
       </ul>
