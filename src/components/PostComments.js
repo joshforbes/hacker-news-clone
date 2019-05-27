@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Post from "./Post";
 import HackerNews from "../apis/HackerNews";
+import { Link } from "react-router-dom";
 
 function PostComments({
   match: {
@@ -40,7 +41,9 @@ function PostComments({
           return (
             <li key={comment.id}>
               <div>
-                <span>by {comment.by}</span>
+                <Link to={`/user/${comment.by}`} post={comment.by}>
+                  <span>by {comment.by}</span>
+                </Link>
                 <span>on {comment.time}</span>
               </div>
               <p dangerouslySetInnerHTML={{ __html: comment.text }} />
