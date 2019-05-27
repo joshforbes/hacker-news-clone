@@ -35,21 +35,27 @@ function AuthorPosts({
   return (
     <div className="author-posts">
       <div>
-        <div>{author.id}</div>
+        <h1>{author.id}</h1>
         <div>
           <span>joined {author.created}</span>
           <span>has {author.karma} karma</span>
         </div>
+        <p dangerouslySetInnerHTML={{ __html: author.about }} />
       </div>
-      <ul>
-        {posts.map(post => {
-          return (
-            <li key={post.id}>
-              <Post post={post} />
-            </li>
-          );
-        })}
-      </ul>
+      <h2>Posts</h2>
+      {posts.length > 0 ? (
+        <ul>
+          {posts.map(post => {
+            return (
+              <li key={post.id}>
+                <Post post={post} />
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <div>This user hasn't posted yet</div>
+      )}
     </div>
   );
 }
